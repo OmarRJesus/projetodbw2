@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+import './time_theme.css';
+import brain_image from '../../assets/imagemCerebro.png';
+
+// TODO: fazer a pagina de selecao do tema e do tempo que vamos poder estar na sala
+// para isso vamos criar um input onde vamos poder escrever o tema e posteriormente guardar esse valor do tipo String na nossa BD, depois criamos uma caixa de selecao onde vamos poder escolher o tempo que vamos estar na sala, e depois guardamos esse valor do tipo int na nossa BD
+
+const ThemeSelector = () => {
+  const [theme, setTheme] = useState('');   // usamos esta variavel para guardar o tema que vamos escolher
+  const [time, setTime] = useState(''); // usamos esta variavel para guardar o tempo que vamos escolher
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Tema escolhido: ${theme}\nTempo escolhido: ${time}`);
+    
+    // aqui temos de adiconar a logica para guardar os dados na BD
+    console.log('Dados a serem enviados para a BD:', { theme, time }); // assim conseguimos ver os dados que estamos a enviar para a BD
+
+  };
+
+  return (
+    <div className="main-container"> {/* Novo container principal */}
+      <div className="container">
+        <div className="form-section">
+          <h2 className="title">Seleção do Tema e do tempo</h2>
+          <form onSubmit={handleSubmit}> {/* Adicionando o evento de submit */}
+            <div className="input-group">
+              <span className="icon">🧠</span>
+              <input
+                type="text"
+                placeholder="Digite o tema"
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
+                onFocus={(e) => (e.target.placeholder = '')} // Remove o placeholder ao focar
+                onBlur={(e) => (e.target.placeholder = 'Digite o tema')} // Retorna o placeholder ao desfocar (corrigido)
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <span className="icon">⏰</span>
+              <select
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                required
+              >
+                <option value="">Selecione o tempo</option>
+                <option value="5">5 minutos</option>
+                <option value="10">30 segundos</option>
+                <option value="15">45 segundos</option>
+                <option value="30">1 minuto</option>
+              </select>
+            </div>
+
+            <button className="submit-btn" type="submit">Confirmar</button>
+          </form>
+        </div>
+
+        
+      </div>
+      <div className="image-section">
+          <img src={brain_image} alt="imagem-cerebro-login" /> {/* Alt text mais descritivo */}
+        </div>
+    </div>
+  );
+};
+
+export default ThemeSelector;

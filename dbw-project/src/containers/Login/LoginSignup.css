@@ -1,4 +1,20 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+  }
+
+
+.login-signup-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Garante que ocupa toda a altura da tela */
+
+}
+
 .container {
+    
     display: flex;
     flex-direction: column;
     width: 600px;
@@ -6,9 +22,27 @@
     margin: auto;
     margin-top: 200px;
     margin-left: 350px;
-    background: #fff;
+    background: transparent;
     padding-bottom: 30px;
+    transform: translate(-35%, -15%) scale(0.95); 
 }
+
+.image-container {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+}
+
+.image-container img {
+    width: 600px; /* Largura fixa */
+    height: 600px; /* Altura fixa */
+    object-fit: cover; /* Ajusta o conteúdo da imagem para preencher o espaço */
+    border-radius: 8px; /* Mantém os cantos arredondados */
+}
+
 
 .header {
     display: flex;
@@ -21,7 +55,7 @@
 }
 
 .text {
-    color: #3c009d;
+    color: #fff;
     font-size: 48px;
     font-weight: 700;
 }
@@ -29,7 +63,7 @@
 .underline {
     width: 61px;
     height: 6px;
-    background: #3c009d;
+    background: #fff;
     border-radius: 9px;
 }
 
@@ -48,7 +82,8 @@
     width: 580px;
     height: 80px;
     background: #eaeaea;
-    border-radius: 6px;
+    border-radius: 40px;
+    
 }
 
 .input img {
@@ -67,18 +102,72 @@
     outline: none;
     color: #797979;
     font-size: 19px;
+  
 }
 
 .forgot-password {
+   
     padding-left: 62px;
-    margin-top: 27px;
-    color: #797979;
+    margin-top: 50px;
+    color: #b1aeae;
     font-size: 18px;
+    text-align: center;
+    line-height: 1.5;
 }
 
 .forgot-password span {
-    color: #4c00b4;
+    color: #6924ca;
     cursor: pointer
+}
+
+.forgot-password span:hover {
+    text-decoration: underline;
+    color: #7d2fea;
+}
+
+
+.login {
+   
+    padding-left: 62px;
+    margin-top: 10px;
+    color: #b1aeae;
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.5;
+    
+}
+
+.login span {
+    color: #6924ca;
+    cursor: pointer
+}
+
+.login span:hover {
+    text-decoration: underline;
+    color: #7d2fea;
+}
+
+
+
+
+.sinup {
+   
+    padding-left: 62px;
+    color: #b1aeae;
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.5;
+    margin-top: 50px;
+}
+
+.sinup span {
+    color: #6924ca;
+    cursor: pointer
+}
+
+.sinup span:hover {
+    text-decoration: underline;
+    color: #7d2fea;
 }
 
 .submit-container {
@@ -86,6 +175,7 @@
     gap: 30px;
     margin: 60px auto;
 }
+
 
 .submit {
     display: flex;
@@ -101,7 +191,20 @@
     cursor: pointer;
 }
 
+.submit:hover {
+    background: #6924ca;
+    color: #fff;
+    transition: 0.3s;
+}
+
 .gray{
     background: #eaeaea;
     color: #676767;
+
 }
+
+
+
+/*  animacoes */
+
+

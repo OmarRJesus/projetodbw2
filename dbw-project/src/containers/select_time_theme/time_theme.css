@@ -1,0 +1,108 @@
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Garante pelo menos a altura da tela */
+    padding: 20px;
+    
+    color: white;
+    flex-direction: row; /* Garante que os filhos (container e image-section) fiquem lado a lado por padrão */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    border-radius: 32px;
+    margin: auto;
+    margin-top: 200px;
+    margin-left: 350px;
+    background: transparent;
+    padding-bottom: 30px;
+    transform: translate(-35%, -15%) scale(1.15); 
+}
+
+.form-section {
+    padding: 40px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    border-bottom: 3px solid white;
+    display: inline-block;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.input-group .icon {
+    margin-right: 10px;
+}
+
+.input-group input,
+.input-group select {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 16px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #6924ca;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20px; /* Espaço entre o formulário e a imagem */
+    width: 50%; /* Ocupa metade da largura do main-container */
+    transform: translate(-20%, 0%) scale(1.2); /* Ajusta a posição e o tamanho da imagem */
+}
+
+.image-section img {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    object-fit: contain; /* Garante que a imagem inteira caiba sem cortar */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Para telas menores */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column; /* Organiza verticalmente em telas menores */
+        align-items: center; /* Centraliza horizontalmente */
+    }
+
+    .image-section {
+        padding-left: 0;
+        margin-top: 30px;
+        width: 80%; /* Ocupa mais largura em telas menores */
+    }
+}

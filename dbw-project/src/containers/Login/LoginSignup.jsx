@@ -1,5 +1,6 @@
 import React from 'react'
 import './LoginSignup.css'
+import { useNavigate } from 'react-router-dom'
 
 import user_icon from '../../assets/user.png'
 import password_icon from '../../assets/password.png'
@@ -7,7 +8,11 @@ import email_icon from '../../assets/email.png'
 
 function LoginSignup() {
     const [action, setAction] = React.useState('Login');
-
+    const navigate = useNavigate();
+    const handleLogin = () => {
+        // Simular login e redirecionar para /theme
+        navigate('/theme');
+    };
     return (
         <div className='container'>
             <div className='header'>
@@ -30,10 +35,37 @@ function LoginSignup() {
                     <input type='password' placeholder='Password' />
                 </div>
             </div>
-            {action === 'Sign Up'? <div></div>:<div className="forgot-password">Lost password?  <span>Clik Here!</span></div>}
+            {action === 'Sign Up' ? <div></div> : <div className="forgot-password">Lost password?  <span>Clik Here!</span></div>}
             <div className="submit-container">
-                <div className={action === 'Login' ? 'submit gray' : 'submit'} onClick={() => { setAction('Sign Up') }}>Sign Up</div>
-                <div className={action === 'Sign Up' ? 'submit gray' : 'submit'} onClick={() => { setAction('Login') }}>Login</div>
+            <div
+                    className={action === 'Login' ? 'submit gray' : 'submit'}
+                    onClick={() => {
+                        if (action === 'Login') {
+                            // Primeiro clique: muda para o estado "Sign Up"
+                            setAction('Sign Up');
+                        } else {
+                            // Segundo clique: redireciona para /theme
+                            navigate('/theme');
+                        }
+                    }}
+                >
+                    Sign Up
+                </div>
+                <div
+                    className={action === 'Sign Up' ? 'submit gray' : 'submit'}
+                    onClick={() => {
+                        if (action === 'Sign Up') {
+                            // Primeiro clique: muda para o estado "Login"
+                            setAction('Login');
+                        } else {
+                            // Segundo clique: redireciona para /theme
+                            navigate('/theme');
+                        }
+                    }}
+                >
+                    Login
+                </div>
+
             </div>
         </div>
     )

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './MainPage.css';
 import brain_image from '../../assets/imagemCerebro.png';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
   const [lastBrainstorms, setLastBrainstorms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBrainstorms = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         const dataFromDatabase = [
-          { id: 1, theme: 'Ideias para novos produtos', duration: '30 segundos', time: '12:00', date: '2025-05-06' },
+          { id: 1, theme: 'Ideias para novos produtos aaaaaaa', duration: '30 segundos', time: '12:00', date: '2025-05-06' },
           { id: 2, theme: 'Soluções para o problema X', duration: '1 minuto', time: '18:30', date: '2025-05-05' },
         ];
 
@@ -31,6 +33,7 @@ const MainPage = () => {
   const handleStartBrainstorm = () => {
     console.log('Brainstorm started!');
     // Redirecionar para a página de brainstorming
+    navigate('/select_time_theme');
   };
 
   const handleDetailsClick = (brainstormId) => {
@@ -41,6 +44,7 @@ const MainPage = () => {
   const handleProfileClick = () => {
     console.log('Going to profile page');
     // Redirecionar para a página de perfil
+    navigate('/profile');
   };
 
   return (
@@ -62,7 +66,7 @@ const MainPage = () => {
               {lastBrainstorms.map(brainstorm => (
                 <li key={brainstorm.id} className="brainstorm-item-compact">
                   <div className="brainstorm-info-compact">
-                    <p><strong>Tema:</strong> {brainstorm.theme.substring(0, 15)}{brainstorm.theme.length > 15 ? '...' : ''}</p>
+                    <p><strong>Tema:</strong> {brainstorm.theme.substring(0, 40)}{brainstorm.theme.length > 40 ? '...' : ''}</p>
                     <p><strong>Tempo:</strong> {brainstorm.time.substring(0, 5)}</p>
                   </div>
                   <button className="details-button-compact" onClick={() => handleDetailsClick(brainstorm.id)}>Details</button>

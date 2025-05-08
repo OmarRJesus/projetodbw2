@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './StyleBrainStormPage.css';
 import brain_image from '../../assets/imagemCerebro.png';
+import { useNavigate } from 'react-router-dom';
 
 const BrainstormingPage = () => {
   const location = useLocation();
@@ -12,7 +13,7 @@ const BrainstormingPage = () => {
   const wordsArray = words.split(/[,\n\r\s]+/).filter(word => word.trim() !== '');
   const timerInterval = useRef(null);
   const [onlineUsers, setOnlineUsers] = useState(['User1', 'User2', 'User3']); // Exemplo
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (selectedTime === undefined || topic === undefined) {
       console.warn("No selected time or topic received. Using default values.");
@@ -20,7 +21,7 @@ const BrainstormingPage = () => {
   }, [selectedTime, topic]);
 
   useEffect(() => {
-    if (isRunning || timer > 0) {
+    if (isRunning && timer > 0) {
       timerInterval.current = setInterval(() => {
         setTimer(prevTimer => prevTimer - 1);
       }, 1000);
@@ -45,13 +46,16 @@ const BrainstormingPage = () => {
   };
 
   const handlePauseResume = () => {
+    if(timer > 0) {
     setIsRunning(prevIsRunning => !prevIsRunning);
+    }
   };
 
   const handleEndSession = () => {
     clearInterval(timerInterval.current);
     setIsRunning(false);
     setTimer(0);
+    navigate('/home'); // Redireciona para a página principal
     // aqui tambem vai retornar as palavras que foram escritas
     // Implement your save logic here or navigation.
   };

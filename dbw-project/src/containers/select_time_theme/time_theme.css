@@ -57,6 +57,10 @@
     font-size: 16px;
 }
 
+.input-group input::placeholder{
+    color: #000;
+}
+
 .submit-btn {
     width: 100%;
     padding: 15px;

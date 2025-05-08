@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './time_theme.css';
 import brain_image from '../../assets/imagemCerebro.png';
+import { useNavigate } from 'react-router-dom';
 
 // TODO: fazer a pagina de selecao do tema e do tempo que vamos poder estar na sala
 // para isso vamos criar um input onde vamos poder escrever o tema e posteriormente guardar esse valor do tipo String na nossa BD, depois criamos uma caixa de selecao onde vamos poder escolher o tempo que vamos estar na sala, e depois guardamos esse valor do tipo int na nossa BD
@@ -8,13 +9,14 @@ import brain_image from '../../assets/imagemCerebro.png';
 const ThemeSelector = () => {
   const [theme, setTheme] = useState('');   // usamos esta variavel para guardar o tema que vamos escolher
   const [time, setTime] = useState(''); // usamos esta variavel para guardar o tempo que vamos escolher
-
+  const navigate = useNavigate(); // Usado para navegar entre páginas
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Tema escolhido: ${theme}\nTempo escolhido: ${time}`);
+    //alert(`Tema escolhido: ${theme}\nTempo escolhido: ${time}`);
     
-    // aqui temos de adiconar a logica para guardar os dados na BD
+    // aqui temos de adiconar a logica para guardar os dados na BD, quer do tema quer do tempo
     console.log('Dados a serem enviados para a BD:', { theme, time }); // assim conseguimos ver os dados que estamos a enviar para a BD
+    navigate('/brainstorm', { state: { selectedTime: time, topic: theme } }); // Redireciona para a página de brainstorming com os dados do tema e do tempo
 
   };
 
@@ -33,7 +35,7 @@ const ThemeSelector = () => {
                 onChange={(e) => setTheme(e.target.value)}
                 onFocus={(e) => (e.target.placeholder = '')} // Remove o placeholder ao focar
                 onBlur={(e) => (e.target.placeholder = 'Digite o tema')} // Retorna o placeholder ao desfocar (corrigido)
-                required
+                required // assim garantimos que o elemento é obrigatório e nao comecamos o brainstorm sem que tenhamos um tema e tambem o tempo no caso abaixo
               />
             </div>
 
@@ -45,10 +47,10 @@ const ThemeSelector = () => {
                 required
               >
                 <option value="">Selecione o tempo</option>
-                <option value="5">5 segundos</option>
-                <option value="10">30 segundos</option>
-                <option value="15">45 segundos</option>
-                <option value="30">1 minuto</option>
+                <option value="15">15 segundos</option>
+                <option value="30">30 segundos</option>
+                <option value="45">45 segundos</option>
+                <option value="60">1 minuto</option>
               </select>
             </div>
 

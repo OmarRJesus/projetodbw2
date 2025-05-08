@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './LoginSignup.css';
 
 import user_icon from '../../assets/user.png';
@@ -11,17 +13,21 @@ function LoginSignup() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Previne o comportamento padrão do formulário
         if (action === 'Login') {
             // dados a serem enviados para a BD no login
             console.log('Login:', { email, password });
-            // Aqui você faria a chamada para a sua API de login
+            // fazer ainda a parte que chama a api,  com a ajuda do passport para ver se o utilizador existe ou não
+            navigate('/home'); // Redireciona para a página principal após o login
         } else {
             // dados a serrem enviados para a BD no signup
             console.log('Sign Up:', { username, email, password });
-            // Aqui você faria a chamada para a sua API de signup
+            // fazer a parte da api para criar o utilizador na BD, temos de fazer na mesma a verificacao para ber se o utilizador ja existe ou nao
+            navigate('/home'); // Redireciona para a página principal após o cadastro
+
         }
     };
 
@@ -44,6 +50,7 @@ function LoginSignup() {
                                     onChange={(e) => setUsername(e.target.value)}
                                     onFocus={(e) => (e.target.placeholder = '')}
                                     onBlur={(e) => (e.target.placeholder = 'UserName')}
+                                    required
                                 />
                             </div>
                         )}
@@ -57,6 +64,7 @@ function LoginSignup() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 onFocus={(e) => (e.target.placeholder = '')}
                                 onBlur={(e) => (e.target.placeholder = 'Email')}
+                                required
                             />
                         </div>
 
@@ -69,6 +77,7 @@ function LoginSignup() {
                                 onChange={(e) => setPassword(e.target.value)}
                                 onFocus={(e) => (e.target.placeholder = '')}
                                 onBlur={(e) => (e.target.placeholder = 'Password')}
+                                required
                             />
                         </div>
                     </div>

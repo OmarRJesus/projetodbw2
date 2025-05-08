@@ -1,19 +1,18 @@
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-  }
 
 
 .login-signup-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Garante que ocupa toda a altura da tela */
+    min-height: 100vh; /* Garante pelo menos a altura da tela */
+    padding: 20px;
+    
+    color: white;
+    flex-direction: row; /* Garante que os filhos (container e image-section) fiquem lado a lado por padrão */
 
 }
 
-.container {
+.container2 {
     
     display: flex;
     flex-direction: column;
@@ -24,23 +23,30 @@ body {
     margin-left: 350px;
     background: transparent;
     padding-bottom: 30px;
-    transform: translate(-35%, -15%) scale(0.95); 
+    transform: translate(-40%, -20%) scale(0.90); /* Ajusta a posição e o tamanho da imagem */
+
+}
+
+.form-section {
+    padding: 40px;
 }
 
 .image-container {
-    width: 50%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
-
+    align-items: center;
+    padding-left: 20px; /* Espaço entre o formulário e a imagem */
+    width: 50%; /* Ocupa metade da largura do main-container */
+    transform: translate(-25%, -10%) scale(1.30); /* Ajusta a posição e o tamanho da imagem */
 }
 
 .image-container img {
-    width: 600px; /* Largura fixa */
-    height: 600px; /* Altura fixa */
-    object-fit: cover; /* Ajusta o conteúdo da imagem para preencher o espaço */
-    border-radius: 8px; /* Mantém os cantos arredondados */
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    object-fit: contain; /* Garante que a imagem inteira caiba sem cortar */
+    height: auto; /* Mantém a proporção da imagem */
 }
 
 
@@ -171,11 +177,24 @@ body {
 }
 
 .submit-container {
-    display: flex;
-    gap: 30px;
-    margin: 60px auto;
+    width: 20%;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: white;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    transform: translate(0%, 100%) scale(1.2);
+
 }
 
+.submit-container:hover {
+    background: #6924ca;
+    color: #fff;
+    transition: 0.3s;
+}
 
 .submit {
     display: flex;
@@ -189,6 +208,7 @@ body {
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
+    
 }
 
 .submit:hover {

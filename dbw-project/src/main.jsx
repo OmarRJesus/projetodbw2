@@ -7,13 +7,16 @@ import './index.css'
 import Login from './containers/Login/LoginSignup.jsx'
 import Time_theme from './containers/select_time_theme/time_theme.jsx'
 import BrainStormingPage from './containers/brainStormPage/BrainStormPage.jsx'
+import MainPage from './containers/MainPage/mainPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-   {/* <Time_theme /> */}
-     <BrainStormingPage /> 
-    {/* <Login /> */}
-    </BrowserRouter>
+      {/*<Time_theme /> */}
+ {/*<BrainStormingPage />  */}
+<MainPage /> {/* */}
+   {/*<Login /> */}
+</BrowserRouter>
+
   </StrictMode>,
 )

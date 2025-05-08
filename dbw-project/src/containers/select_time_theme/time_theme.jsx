@@ -45,7 +45,7 @@ const ThemeSelector = () => {
                 required
               >
                 <option value="">Selecione o tempo</option>
-                <option value="5">5 minutos</option>
+                <option value="5">5 segundos</option>
                 <option value="10">30 segundos</option>
                 <option value="15">45 segundos</option>
                 <option value="30">1 minuto</option>

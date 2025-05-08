@@ -20,7 +20,7 @@ const BrainstormingPage = () => {
   }, [selectedTime, topic]);
 
   useEffect(() => {
-    if (isRunning && timer > 0) {
+    if (isRunning || timer > 0) {
       timerInterval.current = setInterval(() => {
         setTimer(prevTimer => prevTimer - 1);
       }, 1000);
@@ -52,7 +52,7 @@ const BrainstormingPage = () => {
     clearInterval(timerInterval.current);
     setIsRunning(false);
     setTimer(0);
-    console.log("Brainstorming session manually ended. Words:", wordsArray);
+    // aqui tambem vai retornar as palavras que foram escritas
     // Implement your save logic here or navigation.
   };
 
@@ -64,7 +64,7 @@ const BrainstormingPage = () => {
       </div>
 
       <div className="topic-section">
-        <h2 className="topic-title">Brainsorm!</h2>
+        <h2 className="topic-title">Brainstorm!</h2>
         <p className="topic-text">{topic || "No topic selected"}</p>
         <p className="instructions">Brainstorm your ideas on the box until the time is over!</p>
       </div>

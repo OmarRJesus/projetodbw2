@@ -1,0 +1,140 @@
+/* DetailsPage.css */
+.details-page-container {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('../../assets/imagemCerebro3.png'); /* Garante que o caminho esteja correto no CSS também */
+    background-size: cover; /* Para cobrir todo o fundo */
+    background-repeat: no-repeat; /* Para evitar repetição da imagem */
+    background-position: center; /* Para centralizar a imagem */
+    color: #f8f8f2;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 30px;
+  }
+  
+  .logo2 {
+    font-size: 2em;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: #fff;
+  }
+  
+  .logo-i {
+    font-style: italic;
+    color: #6924ca;
+  }
+
+  .logo2:hover{
+    color: #e5d7f7;
+  } 
+  
+  
+  .profile-button {
+    font-size: 2em;
+    background: none;
+    border: none;
+    color: #f8f8f2;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .details-section {
+    padding: 30px;
+    background-color: rgba(101, 99, 103, 0.5);
+    
+    border-radius: 8px;
+    margin-bottom: 30px;
+    transform: translate(0, 10%);
+    
+  }
+  
+  .details-title {
+    color: #c6a5f5;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #b290e1;
+    padding-bottom: 10px;
+    font-size: 2em;
+  }
+  
+  .details-info p {
+    margin-bottom: 10px;
+    font-size: 1em;
+  }
+  
+  .details-info strong {
+    color: #c6a5f5;
+  }
+  
+  .ai-generated-text-container {
+    margin-top: 30px;
+  }
+  
+  .ai-generated-text-container h3 {
+    color: #c6a5f5;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+  }
+  
+  .ai-generated-text {
+    width: 100%;
+    min-height: 150px;
+    padding: 15px;
+    background-color: #44475a76;
+    color: #f8f8f2;
+    border: 1px solid #6272a4;
+    border-radius: 5px;
+    font-size: 1em;
+    line-height: 1.6;
+    box-sizing: border-box;
+    resize: vertical; /* Permite redimensionar verticalmente */
+  }
+  
+  .brain-image-container-details {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .brain-image-details {
+    max-width: 400px;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .details-section {
+      padding: 20px;
+    }
+  
+    .details-title {
+      font-size: 1.8em;
+    }
+  
+    .details-info p {
+      font-size: 0.9em;
+    }
+  
+    .ai-generated-text-container h3 {
+      font-size: 1.3em;
+    }
+  
+    .ai-generated-text {
+      min-height: 120px;
+      font-size: 0.9em;
+    }
+  
+    .brain-image-details {
+      max-width: 90%;
+    }
+  }

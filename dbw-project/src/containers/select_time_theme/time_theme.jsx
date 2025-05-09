@@ -20,9 +20,21 @@ const ThemeSelector = () => {
 
   };
 
+
+  const hadleBackHome = () => {
+    // Redirecionar para a página inicial
+    navigate('/home');
+  }
   return (
+    <div className='time-theme-container'>
+      <header className="main-header">
+        <button className="logo2" onClick={hadleBackHome}>br<span className="logo-i">A</span>in</button> 
+        
+      </header>
     <div className="main-container"> {/* Novo container principal */}
+      
       <div className="container">
+        
         <div className="form-section">
           <h2 className="title">Seleção do Tema e do tempo</h2>
           <form onSubmit={handleSubmit}> {/* Adicionando o evento de submit */}
@@ -64,7 +76,7 @@ const ThemeSelector = () => {
           <img src={brain_image} alt="imagem-cerebro-login" /> {/* Alt text mais descritivo */}
         </div>
     </div>
-  );
+</div>  );
 };
 
 export default ThemeSelector;

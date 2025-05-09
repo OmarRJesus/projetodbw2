@@ -39,6 +39,7 @@ const MainPage = () => {
   const handleDetailsClick = (brainstormId) => {
     console.log(`Details for brainstorm ${brainstormId}`);
     // Redirecionar para a página de detalhes
+    navigate('/details' /*,{ state: { brainstormId } }*/);
   };
 
   const handleProfileClick = () => {

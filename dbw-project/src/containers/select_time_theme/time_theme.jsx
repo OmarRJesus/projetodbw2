@@ -20,7 +20,7 @@ const ThemeSelector = () => {
 
   };
 
-
+//
   const hadleBackHome = () => {
     // Redirecionar para a página inicial
     navigate('/home');

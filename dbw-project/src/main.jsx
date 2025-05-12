@@ -1,12 +1,29 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './mainRoutes';
+
 import './index.css'
-import Login from './containers/Login/LoginSignup.jsx'
-import Time_theme from './containers/select_time_theme/time_theme.jsx'
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Time_theme />
-    {/* <Login /> */}
+    <Router>
+            {/*<Time_theme /> */}
+            {/*<BrainStormingPage />*/}
+            {/*<MainPage /> */}
+            {/*<Login /> */}
+
+      <div className="App">
+        <AppRoutes /> {/* as paginas vao ser renderizadas de acordo com o url que for fornecido */}
+      </div>
+
+    </Router>
+
   </StrictMode>,
 )
+
+
+
+

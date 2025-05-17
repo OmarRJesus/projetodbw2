@@ -1,14 +1,19 @@
 import express from 'express';
+import { registerUser } from '../controllers/userController.js';
 
 const router = express.Router();
 
-//rota para login
+// Rota para login
 router.post('/login', (req, res) => {
-      res.send("Login!")
+    res.send("Login!");
 });
 
-//rota para theme
+// Rota para theme
 router.post('/theme', (req, res) => {
-      res.send("Theme!")
+    res.send("Theme!");
 });
 
+// Rota para registrar um usuário
+router.post('/Users', registerUser);
+
+export default router; // Exportação padrão

@@ -1,75 +1,110 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './LoginSignup.css'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 import user_icon from '../../assets/user.png'
 import password_icon from '../../assets/password.png'
 import email_icon from '../../assets/email.png'
 
 function LoginSignup() {
-    const [action, setAction] = React.useState('Login');
+    const [action, setAction] = useState('Login');
     const navigate = useNavigate();
-    const handleLogin = () => {
-        // Simular login e redirecionar para /theme
-        navigate('/theme');
-    };
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const response = await axios.post('http://localhost:3001/api/Users', {
+                username: name,
+                email: email,
+                password: password,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status}`);
+        }
+
+        
+        console.log(response.data.message);
+        alert('Usuário registrado com sucesso!');
+        navigate('/theme'); // Redireciona após sucesso
+    } catch (error) {
+        console.error('Erro ao registrar o usuário:', error);
+        alert('Erro ao registrar o usuário. Verifique os dados e tente novamente.');
+    }
+};
+
     return (
         <div className='container'>
             <div className='header'>
-                <div className='text'> {action} </div>
+                <div className='text'>{action}</div>
                 <div className='underline'></div>
             </div>
-            <div className='inputs'>
-                {action === 'Login' ? <div></div> : <div className='input'>
-                    <img src={user_icon} alt="" />
-                    <input type='text' placeholder='UserName' />
-                </div>}
+
+            <form className='inputs' onSubmit={handleSubmit}>
+                {action === 'Login' ? null : (
+                    <div className='input'>
+                        <img src={user_icon} alt="" />
+                        <input
+                            type='text'
+                            placeholder='UserName'
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+                )}
 
                 <div className='input'>
                     <img src={email_icon} alt="" />
-                    <input type='email' placeholder='Email' />
+                    <input
+                        type='email'
+                        placeholder='Email'
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
 
                 <div className='input'>
                     <img src={password_icon} alt="" />
-                    <input type='password' placeholder='Password' />
-                </div>
-            </div>
-            {action === 'Sign Up' ? <div></div> : <div className="forgot-password">Lost password?  <span>Clik Here!</span></div>}
-            <div className="submit-container">
-            <div
-                    className={action === 'Login' ? 'submit gray' : 'submit'}
-                    onClick={() => {
-                        if (action === 'Login') {
-                            // Primeiro clique: muda para o estado "Sign Up"
-                            setAction('Sign Up');
-                        } else {
-                            // Segundo clique: redireciona para /theme
-                            navigate('/theme');
-                        }
-                    }}
-                >
-                    Sign Up
-                </div>
-                <div
-                    className={action === 'Sign Up' ? 'submit gray' : 'submit'}
-                    onClick={() => {
-                        if (action === 'Sign Up') {
-                            // Primeiro clique: muda para o estado "Login"
-                            setAction('Login');
-                        } else {
-                            // Segundo clique: redireciona para /theme
-                            navigate('/theme');
-                        }
-                    }}
-                >
-                    Login
+                    <input
+                        type='password'
+                        placeholder='Password'
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
                 </div>
 
-            </div>
+                {action === 'Sign Up' ? null : (
+                    <div className="forgot-password">Lost password? <span>Click Here!</span></div>
+                )}
+
+                <div className="submit-container">
+                    {action === 'Sign Up' ? (
+                        <button type="submit" className="submit" onClick={() => navigate('/theme')}>Sign Up</button>
+                    ) : (
+                        <div className="submit gray" onClick={() => setAction('Sign Up')}>Sign Up</div>
+                    )}
+
+                    {action === 'Login' ? (
+                        <button
+                            type="button"
+                            className="submit"
+                            onClick={() => navigate('/theme')}
+                        >
+                            Login
+                        </button>
+                    ) : (
+                        <div className="submit gray" onClick={() => setAction('Login')}>Login</div>
+                    )}
+                </div>
+            </form>
         </div>
     )
 }
 
-
-export default LoginSignup  
+export default LoginSignup

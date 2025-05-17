@@ -2,49 +2,41 @@ import React, { useState, useEffect } from 'react';
 import './MainPage.css';
 import brain_image from '../../assets/imagemCerebro.png';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Importe o axios para fazer a requisição
 
 const MainPage = () => {
-  const [lastBrainstorms, setLastBrainstorms] = useState([]);
+  const [themes, setThemes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBrainstorms = async () => {
+    const fetchThemes = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 0));
-
-        const dataFromDatabase = [
-          { id: 1, theme: 'Ideias para novos produtos aaaaaaa', duration: '30 segundos', time: '12:00', date: '2025-05-06' },
-          { id: 2, theme: 'Soluções para o problema X', duration: '1 minuto', time: '18:30', date: '2025-05-05' },
-        ];
-
-        setLastBrainstorms(dataFromDatabase);
+        const response = await axios.get('http://localhost:3001/api/themes'); // Substitua pela sua rota para buscar os temas
+        setThemes(response.data);
         setLoading(false);
       } catch (err) {
-        setError(err.message || 'Ocorreu um erro ao buscar os dados.');
+        setError(err.message || 'Ocorreu um erro ao buscar os temas.');
         setLoading(false);
       }
     };
 
-    fetchBrainstorms();
+    fetchThemes();
   }, []);
 
   const handleStartBrainstorm = () => {
     console.log('Brainstorm started!');
-    // Redirecionar para a página de brainstorming
     navigate('/select_time_theme');
   };
 
-  const handleDetailsClick = (brainstormId) => {
-    console.log(`Details for brainstorm ${brainstormId}`);
-    // Redirecionar para a página de detalhes
-    navigate('/details' /*,{ state: { brainstormId } }*/);
+  const handleDetails = (themeId) => {
+    console.log(`Details for theme ${themeId}`);
+    navigate(`/details/${themeId}`); 
   };
 
   const handleProfileClick = () => {
     console.log('Going to profile page');
-    // Redirecionar para a página de perfil
     navigate('/profile');
   };
 
@@ -57,29 +49,27 @@ const MainPage = () => {
 
       <div className="content-area">
         <section className="last-brainstorms-section-compact">
-          <h2>Últimos Brainstorms</h2>
+          <h2>Temas e Tempos</h2>
           {loading ? (
-            <p>Carregando...</p>
+            <p>Carregando temas...</p>
           ) : error ? (
             <p className="error-message">{error}</p>
-          ) : lastBrainstorms.length > 0 ? (
+          ) : themes.length > 0 ? (
             <ul className="brainstorm-list-compact">
-              {lastBrainstorms.map(brainstorm => (
-                <li key={brainstorm.id} className="brainstorm-item-compact">
+              {themes.map(themeItem => (
+                <li key={themeItem._id || themeItem.id} className="brainstorm-item-compact">
                   <div className="brainstorm-info-compact">
-                    <p><strong>Tema:</strong> {brainstorm.theme.substring(0, 40)}{brainstorm.theme.length > 40 ? '...' : ''}</p>
-                    <p><strong>Tempo:</strong> {brainstorm.time.substring(0, 5)}</p>
+                    <p><strong>Tema:</strong> {themeItem.tema.substring(0, 40)}{themeItem.tema.length > 40 ? '...' : ''}</p>
+                    <p><strong>Tempo:</strong> {themeItem.tempo}</p>
                   </div>
-                  <button className="details-button-compact" onClick={() => handleDetailsClick(brainstorm.id)}>Details</button>
+                  <button className="details-button-compact" onClick={() => handleDetails(themeItem._id || themeItem.id)}>Details</button>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>Ainda não temos dados.</p>
+            <p>Nenhum tema encontrado.</p>
           )}
         </section>
-
-     
       </div>
 
       <section className="start-brainstorm-section-bottom">

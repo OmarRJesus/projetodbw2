@@ -1,59 +1,82 @@
-import React from 'react';
+// components/Details.jsx
+import React, { useState, useEffect } from 'react';
 import './Details.css';
-import brain_image from '../../assets/imagemCerebro3.png';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const DetailsPage = () => {
-  // Simulação dos dados do brainstorm (vamos ter que ir busar os dados à BD com base no id do brainstorm) vou usar isto so para ser mais facil de ver
-  const navigate = useNavigate();
+    const { id } = useParams(); // Obtém o ID da sessão da URL
+    const [sessionDetails, setSessionDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-  const brainstormDetails = {
-    title: 'Ideias para novos produtos aaaaaaa',
-    duration: '30 segundos',
-    users: ['User1', 'User2', 'User3'],
-    words: ['inovação', 'tecnologia', 'futuro', 'criatividade', 'solução'],
-    aiGeneratedText:
-      'Com base nas palavras-chave inovação, tecnologia, futuro, criatividade e solução, podemos gerar um texto que explora a criação de produtos disruptivos para o mercado vindouro. A tecnologia será a espinha dorsal dessas inovações, impulsionando soluções criativas que atendam às necessidades futuras dos usuários.',
-  };
- 
-  const hadleBackHome = () => {
-    // Redirecionar para a página inicial
-    navigate('/home');
-  }
+    useEffect(() => {
+        const fetchSessionDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/api/sessions/${id}`); // Substitua pela sua rota da API para buscar detalhes da sessão
+                setSessionDetails(response.data);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message || 'Ocorreu um erro ao buscar os detalhes da sessão.');
+                setLoading(false);
+            }
+        };
 
+        fetchSessionDetails();
+    }, [id]);
 
+    const handleBackHome = () => {
+        navigate('/home');
+    };
 
-  return (
-    <div className="details-page-container">
-      <header className="main-header">
-        <button className="logo2" onClick={hadleBackHome}>br<span className="logo-i">A</span>in</button> 
-        
-      </header>
-        <div className="details-content-area">
-      <section className="details-section">
-        <h2 className="details-title">{brainstormDetails.title}</h2>
+    if (loading) {
+        return <p>Carregando detalhes da sessão...</p>;
+    }
 
-        <div className="details-info">
-          <p><strong>Duração:</strong> {brainstormDetails.duration}</p>
-          <p><strong>Participantes:</strong> {brainstormDetails.users.join(', ')}</p>
-          <p><strong>Palavras do Brainstorm:</strong> {brainstormDetails.words.join(', ')}</p>
+    if (error) {
+        return <p className="error-message">{error}</p>;
+    }
+
+    if (!sessionDetails) {
+        return <p>Detalhes da sessão não encontrados.</p>;
+    }
+
+    return (
+        <div className="details-page-container">
+            <header className="main-header">
+                <button className="logo2" onClick={handleBackHome}>br<span className="logo-i">A</span>in</button>
+            </header>
+            <div className="details-content-area">
+                <section className="details-section">
+                    <h2 className="details-title">{sessionDetails.tema}</h2>
+
+                    <div className="details-info">
+                        <p><strong>Duração:</strong> {sessionDetails.tempo}</p>
+                        <p>
+                            <strong>Participantes:</strong>{' '}
+                            {sessionDetails.participantes && sessionDetails.participantes.length > 0
+                                ? sessionDetails.participantes.map(user => user.username).join(', ')
+                                : 'Nenhum participante'}
+                        </p>
+                        {sessionDetails.palavras && sessionDetails.palavras.length > 0 && (
+                            <p><strong>Palavras do Brainstorm:</strong> {sessionDetails.palavras.join(', ')}</p>
+                        )}
+                        {sessionDetails.aiGeradoText && (
+                            <div className="ai-generated-text-container">
+                                <h3>Texto que foi gerado pela IA:</h3>
+                                <textarea
+                                    className="ai-generated-text"
+                                    value={sessionDetails.aiGeradoText}
+                                    readOnly
+                                />
+                            </div>
+                        )}
+                    </div>
+                </section>
+            </div>
         </div>
-
-        <div className="ai-generated-text-container">
-          <h3>Texto que foi gerado pela IA:</h3>
-          <textarea
-            className="ai-generated-text"
-            value={brainstormDetails.aiGeneratedText}
-            readOnly
-          />
-        </div>
-      </section>
-
-      
-      </div>
-    </div>
-  );
+    );
 };
 
 export default DetailsPage;

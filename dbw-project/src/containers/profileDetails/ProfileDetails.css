@@ -4,15 +4,12 @@
   align-items: center;
   min-height: 100vh;
   background-color: transparent;
-  /* Cor de fundo roxa escura, similar ao tema */
   color: #fff;
-  /* Cor do texto lilás */
   padding: 20px;
 }
 
 .profile-container {
   background-color: #423665;
-  /* Um tom mais claro de roxo para o container */
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -20,13 +17,11 @@
   max-width: 600px;
   text-align: left;
   transform: scale(1.1);
-  /* Aumenta o tamanho do container */
 }
 
 .profile-title {
   font-size: 2.5em;
   color: #A786DF;
-  /* Um tom de roxo mais vibrante para o título */
   margin-bottom: 30px;
   text-align: center;
 }
@@ -46,7 +41,6 @@
   width: 200px;
   margin-right: 15px;
   color: #a886e3;
-  /* Uma cor de destaque */
 }
 
 .info-value {
@@ -78,23 +72,18 @@
 .info-value input[type="text"],
 .info-value input[type="email"] {
   width: 100%;
-  /* Ocupar a largura disponível */
   padding: 8px;
   margin-top: 5px;
   border: 1px solid #67538c;
-  /* Uma borda sutil */
   border-radius: 4px;
   background-color: #53447a;
-  /* Um tom mais escuro para o fundo do input */
   color: #fff;
   box-sizing: border-box;
-  /* Evitar que o padding aumente a largura */
 }
 
 .info-value input[type="text"]:focus,
 .info-value input[type="email"]:focus {
   outline: none;
   border-color: #A786DF;
-  /* Cor de foco */
   box-shadow: 0 0 5px rgba(167, 134, 223, 0.5);
 }

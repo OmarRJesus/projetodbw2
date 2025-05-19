@@ -15,14 +15,14 @@ export async function registerUser(req, res) {
         const result = await newUser.save();
         console.log('Usuário salvo com sucesso!', result);
 
-        // 🔥 AQUI É A CORREÇÃO: incluir o user na resposta
+
         res.status(201).json({
             message: 'Usuário registrado com sucesso!',
             user: {
                 _id: result._id,
                 username: result.username,
                 email: result.email,
-                totalBrainstormTime: 0, // opcional
+                totalBrainstormTime: 0,
             },
         });
     } catch (error) {
@@ -68,17 +68,17 @@ export const getUsers = async (req, res) => {
 
 export async function getOnlineUsers(req, res) {
     try {
-        // Busca todos os usuários da base de dados
+
         const allUsers = await User.find({}, 'username email').lean();
 
-        // Simula o usuário logado (você pode usar autenticação para obter o usuário real)
+
         const loggedInUser = req.query.loggedInUser;
 
-        // Filtra o usuário logado e seleciona dois usuários aleatórios
+
         const otherUsers = allUsers.filter(user => user.username !== loggedInUser);
         const randomUsers = otherUsers.sort(() => 0.5 - Math.random()).slice(0, 2);
 
-        // Retorna o usuário logado e os dois usuários aleatórios
+
         res.status(200).json({
             onlineUsers: [loggedInUser, ...randomUsers.map(user => user.username)],
         });
@@ -90,41 +90,41 @@ export async function getOnlineUsers(req, res) {
 
 
 export const updateUser = async (req, res) => {
-  try {
-    const { email, username } = req.body;
-    const { userId } = req.params;  // Assumindo que passas o ID do utilizador na URL
+    try {
+        const { email, username } = req.body;
+        const { userId } = req.params;
 
-    const user = await User.findById(userId);
+        const user = await User.findById(userId);
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
+        if (!user) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+
+        user.username = username || user.username;
+        user.email = email || user.email;
+
+        const updatedUser = await user.save();
+
+        res.status(200).json({
+            message: 'Perfil atualizado com sucesso!',
+            user: {
+                username: updatedUser.username,
+                email: updatedUser.email,
+                totalBrainstormTime: updatedUser.totalBrainstormTime || 0
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao atualizar perfil:', error);
+        res.status(500).json({ message: 'Erro no servidor', error: error.message });
     }
-
-    // Atualiza o nome de utilizador e o email
-    user.username = username || user.username;
-    user.email = email || user.email;
-
-    const updatedUser = await user.save();
-
-    res.status(200).json({
-      message: 'Perfil atualizado com sucesso!',
-      user: {
-        username: updatedUser.username,
-        email: updatedUser.email,
-        totalBrainstormTime: updatedUser.totalBrainstormTime || 0
-      }
-    });
-  } catch (error) {
-    console.error('Erro ao atualizar perfil:', error);
-    res.status(500).json({ message: 'Erro no servidor', error: error.message });
-  }
 };
 
 export const resetPassword = async (req, res) => {
     const { email, newPassword } = req.body;
 
     try {
-        
+
         const user = await User.findOne({ email });
 
         if (!user) {

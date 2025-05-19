@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ProfileDetails.css';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importe useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
 const EditProfilePage = () => {
     const [user, setUser] = useState({
@@ -12,7 +12,7 @@ const EditProfilePage = () => {
     const [isEditing, setIsEditing] = useState(true);
     const [newUsername, setNewUsername] = useState('');
     const [newEmail, setNewEmail] = useState('');
-    const navigate = useNavigate(); // Inicialize useNavigate
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -38,12 +38,12 @@ const EditProfilePage = () => {
                 }
             );
 
-            // Atualizar o estado e localStorage com os novos dados recebidos do backend
+            
             localStorage.setItem('user', JSON.stringify(response.data.user));
             setUser(response.data.user);
             setIsEditing(false);
             alert('Perfil atualizado com sucesso!');
-            navigate('/profile'); // Redireciona de volta para a página de perfil para forçar uma atualização
+            navigate('/profile'); 
         } catch (error) {
             console.error('Erro ao atualizar os dados:', error);
             alert('Erro ao atualizar perfil!');
@@ -54,7 +54,7 @@ const EditProfilePage = () => {
         setIsEditing(false);
         setNewUsername(user.username);
         setNewEmail(user.email);
-        navigate('/profile'); // Redireciona de volta para a página de perfil sem salvar
+        navigate('/profile'); 
     };
 
     return (

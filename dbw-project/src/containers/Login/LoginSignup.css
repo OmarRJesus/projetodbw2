@@ -3,12 +3,9 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    /* Garante pelo menos a altura da tela */
     padding: 20px;
-
     color: white;
     flex-direction: row;
-    /* Garante que os filhos (container e image-section) fiquem lado a lado por padrão */
 
 }
 
@@ -24,7 +21,6 @@
     background: transparent;
     padding-bottom: 30px;
     transform: translate(-40%, -20%) scale(0.90);
-    /* Ajusta a posição e o tamanho da imagem */
 
 }
 
@@ -37,11 +33,8 @@
     justify-content: center;
     align-items: center;
     padding-left: 20px;
-    /* Espaço entre o formulário e a imagem */
     width: 50%;
-    /* Ocupa metade da largura do main-container */
     transform: translate(-25%, -10%) scale(1.30);
-    /* Ajusta a posição e o tamanho da imagem */
 }
 
 .image-container img {
@@ -50,9 +43,8 @@
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     object-fit: contain;
-    /* Garante que a imagem inteira caiba sem cortar */
     height: auto;
-    /* Mantém a proporção da imagem */
+
 }
 
 
@@ -231,6 +223,3 @@
 
 }
 
-
-
-/*  animacoes */

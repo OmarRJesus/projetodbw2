@@ -35,52 +35,51 @@ export const analyzeBrainstorm = async (req, res) => {
                 lastContentLength = stream.content.length;
             }
 
-            // Basic check for potential end (adjust timeout as needed)
-            if (lastContentLength > 0 && stream.stats?.completed) { // Check for a 'completed' flag if available
+
+            if (lastContentLength > 0 && stream.stats?.completed) {
                 clearInterval(intervalId);
                 res.end();
                 console.log("Polling - Stream ended (stats.completed).");
-            } else if (Date.now() - startTime > 120000) { // Timeout after 30 seconds (adjust as needed)
+            } else if (Date.now() - startTime > 120000) {
                 clearInterval(intervalId);
                 res.end();
                 console.log("Polling - Stream ended (timeout).");
             }
-        }, 200); // Poll every 200 milliseconds (adjust as needed)
+        }, 200);
 
         const startTime = Date.now();
-        // The initial call to respond might take some time
-        // We don't need to explicitly wait for it to finish here
+
 
     } catch (error) {
         console.error("Error in analyzeBrainstorm:", error);
         if (!res.headersSent) {
             res.status(500).send(`Error connecting to LM Studio: ${error.message}`);
         } else {
-            clearInterval(intervalId); // Ensure interval is cleared on error
+            clearInterval(intervalId);
         }
     }
 };
 
 export const salvarBrainstormFinalizado = async (req, res) => {
-  try {
-    const { topic, wordsArray, aiResponse, selectedTime, criadorId, username } = req.body;
+    try {
+        const { topic, wordsArray, aiResponse, selectedTime, criadorId, username } = req.body;
 
-    const novoBrainstormFinalizado = new Theme({
-      tema: topic,
-      tempo: selectedTime,
-      status: 'concluido',
-      palavras: wordsArray,
-      aiGeradoText: aiResponse,
-      criador: criadorId,
-      participantes: [{ userId: criadorId, username: username }], // Use o nome de usuário enviado (se enviado)
-      participantesEsperando: [],
-    });
+        const novoBrainstormFinalizado = new Theme({
+            tema: topic,
+            tempo: selectedTime,
+            status: 'concluido',
+            palavras: wordsArray,
+            aiGeradoText: aiResponse,
+            criador: criadorId,
+            participantes: [{ userId: criadorId, username: username }],
+            participantesEsperando: [],
+        });
 
-    const brainstormSalvo = await novoBrainstormFinalizado.save();
-    res.status(201).json({ message: 'Brainstorm finalizado salvo com sucesso!', brainstormId: brainstormSalvo._id });
+        const brainstormSalvo = await novoBrainstormFinalizado.save();
+        res.status(201).json({ message: 'Brainstorm finalizado salvo com sucesso!', brainstormId: brainstormSalvo._id });
 
-  } catch (error) {
-    console.error("Erro ao salvar brainstorm finalizado:", error);
-    res.status(500).json({ message: "Erro ao salvar brainstorm finalizado", error: error.message });
-  }
+    } catch (error) {
+        console.error("Erro ao salvar brainstorm finalizado:", error);
+        res.status(500).json({ message: "Erro ao salvar brainstorm finalizado", error: error.message });
+    }
 };

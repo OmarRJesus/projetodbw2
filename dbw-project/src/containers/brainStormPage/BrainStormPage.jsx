@@ -4,7 +4,7 @@ import './StyleBrainStormPage.css';
 import brain_image from '../../assets/imagemCerebro.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import LoadingIndicator from "../LoadingProcess/loadingIndicator.jsx"; // Import the loading indicator component
+import LoadingIndicator from "../LoadingProcess/loadingIndicator.jsx";
 
 const BrainStormingPage = () => {
   const location = useLocation();
@@ -19,7 +19,7 @@ const BrainStormingPage = () => {
   const navigate = useNavigate();
   const [aiResponse, setAiResponse] = useState('');
   const [isSessionEnded, setIsSessionEnded] = useState(false);
-  const [isProcessing, setIsProcessing] = useState(false); // New state for processing
+  const [isProcessing, setIsProcessing] = useState(false);
   const [hasAnalysisBeenPerformed, setHasAnalysisBeenPerformed] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,14 @@ const BrainStormingPage = () => {
           const response = await axios.post('http://localhost:3001/api/Users/online', {
             params: { loggedInUser: parsedUser.username },
           });
-          setOnlineUsers(response.data.onlineUsers);
+
+
+          const updatedOnlineUsers = [...response.data.onlineUsers];
+          if (!updatedOnlineUsers.includes(parsedUser.username)) {
+            updatedOnlineUsers.push(parsedUser.username);
+          }
+          setOnlineUsers(updatedOnlineUsers);
+
         }
       } catch (error) {
         console.error('Erro ao buscar usuários online:', error);
@@ -50,19 +57,20 @@ const BrainStormingPage = () => {
       }, 1000);
     } else {
       clearInterval(timerInterval.current);
-      setIsRunning(false);
-      setIsSessionEnded(true);
-      console.log("Brainstorming session ended. Words:", wordsArray);
-      if (wordsArray.length > 0 && !hasAnalysisBeenPerformed) {
-        processBrainstorm(wordsArray, topic);
-        setHasAnalysisBeenPerformed(true);
-      } else if (wordsArray.length === 0 && !hasAnalysisBeenPerformed) {
-        setAiResponse("Nenhum tópico foi inserido durante a sessão.");
-        setHasAnalysisBeenPerformed(true);
+      if (timer === 0 && !isSessionEnded) {
+        setIsSessionEnded(true);
+        console.log("Brainstorming session ended. Words:", wordsArray);
+        if (wordsArray.length > 0 && !hasAnalysisBeenPerformed) {
+          processBrainstorm(wordsArray, topic);
+          setHasAnalysisBeenPerformed(true);
+        } else if (wordsArray.length === 0 && !hasAnalysisBeenPerformed) {
+          setAiResponse("Nenhum tópico foi inserido durante a sessão.");
+          setHasAnalysisBeenPerformed(true);
+        }
       }
     }
     return () => clearInterval(timerInterval.current);
-  }, [isRunning, timer, wordsArray, navigate, topic, hasAnalysisBeenPerformed]);
+  }, [isRunning, timer, wordsArray, navigate, topic, hasAnalysisBeenPerformed, isSessionEnded]);
 
   const processBrainstorm = async (topics, currentTopic) => {
     setIsProcessing(true);
@@ -138,35 +146,35 @@ const BrainStormingPage = () => {
     }
   };
 
-const handleGoHome = async () => {
-  if (isSessionEnded && hasAnalysisBeenPerformed) {
-    try {
-      const token = localStorage.getItem('authToken');
-      const storedUser = localStorage.getItem('user');
-      const userData = storedUser ? JSON.parse(storedUser) : null;
-      const userId = userData?._id; // Assumindo que o _id do usuário está armazenado
+  const handleGoHome = async () => {
+    if (isSessionEnded && hasAnalysisBeenPerformed) {
+      try {
+        const token = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('user');
+        const userData = storedUser ? JSON.parse(storedUser) : null;
+        const userId = userData?._id;
 
-      await axios.post('http://localhost:3001/api/brainstorm/salvar', {
-        topic: topic,
-        wordsArray: wordsArray,
-        aiResponse: aiResponse,
-        selectedTime: selectedTime,
-        criadorId: userId, // Envie o userId
-        username: userData?.username, // Opcional: envie o nome de usuário também
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Ainda pode enviar o token para outras finalidades
-        },
-      });
-      navigate('/home');
-    } catch (error) {
-      console.error("Erro ao salvar o brainstorm:", error);
+        await axios.post('http://localhost:3001/api/brainstorm/salvar', {
+          topic: topic,
+          wordsArray: wordsArray,
+          aiResponse: aiResponse,
+          selectedTime: selectedTime,
+          criadorId: userId,
+          username: userData?.username,
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        navigate('/home');
+      } catch (error) {
+        console.error("Erro ao salvar o brainstorm:", error);
+        navigate('/home');
+      }
+    } else {
       navigate('/home');
     }
-  } else {
-    navigate('/home');
-  }
-};
+  };
 
   return (
     <div className="brainstorming-page" style={{ backgroundImage: `url(${brain_image})` }}>
@@ -217,9 +225,11 @@ const handleGoHome = async () => {
         <div className="ai-response-container">
           <h2 className="ai-response-title">Resultado da IA</h2>
           {isProcessing ? (
-            <LoadingIndicator /> // Or some other loading display
+            <LoadingIndicator />
           ) : (
-            <div className="ai-response-text">{aiResponse}</div>
+            <div className="ai-response-wrapper">
+              <div className="ai-response-text">{aiResponse}</div>
+            </div>
           )}
           <button className="control-button" onClick={handleGoHome}>Voltar para Home</button>
         </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MainPage.css';
 import brain_image from '../../assets/imagemCerebro.png';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Importe o axios para fazer a requisição
+import axios from 'axios'; 
 
 const MainPage = () => {
   const [themes, setThemes] = useState([]);
@@ -13,7 +13,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchThemes = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/themes'); // Substitua pela sua rota para buscar os temas
+        const response = await axios.get('http://localhost:3001/api/themes'); 
         setThemes(response.data);
         setLoading(false);
       } catch (err) {

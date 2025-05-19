@@ -3,26 +3,25 @@ import './time_theme.css';
 import brain_image from '../../assets/imagemCerebro.png';
 import { useNavigate } from 'react-router-dom';
 
-// TODO: fazer a pagina de selecao do tema e do tempo que vamos poder estar na sala
-// para isso vamos criar um input onde vamos poder escrever o tema e posteriormente guardar esse valor do tipo String na nossa BD, depois criamos uma caixa de selecao onde vamos poder escolher o tempo que vamos estar na sala, e depois guardamos esse valor do tipo int na nossa BD
+
 
 const ThemeSelector = () => {
-  const [theme, setTheme] = useState('');   // usamos esta variavel para guardar o tema que vamos escolher
-  const [time, setTime] = useState(''); // usamos esta variavel para guardar o tempo que vamos escolher
-  const navigate = useNavigate(); // Usado para navegar entre páginas
+  const [theme, setTheme] = useState('');   
+  const [time, setTime] = useState(''); 
+  const navigate = useNavigate(); 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //alert(`Tema escolhido: ${theme}\nTempo escolhido: ${time}`);
     
-    // aqui temos de adiconar a logica para guardar os dados na BD, quer do tema quer do tempo
-    console.log('Dados a serem enviados para a BD:', { theme, time }); // assim conseguimos ver os dados que estamos a enviar para a BD
-    navigate('/brainstorm', { state: { selectedTime: time, topic: theme } }); // Redireciona para a página de brainstorming com os dados do tema e do tempo
+    
+    
+    console.log('Dados a serem enviados para a BD:', { theme, time }); 
+    navigate('/brainstorm', { state: { selectedTime: time, topic: theme } }); 
 
   };
 
 //
   const hadleBackHome = () => {
-    // Redirecionar para a página inicial
+    
     navigate('/home');
   }
   return (
@@ -31,13 +30,13 @@ const ThemeSelector = () => {
         <button className="logo2" onClick={hadleBackHome}>br<span className="logo-i">A</span>in</button> 
         
       </header>
-    <div className="main-container"> {/* Novo container principal */}
+    <div className="main-container"> 
       
       <div className="container">
         
         <div className="form-section">
           <h2 className="title">Seleção do Tema e do tempo</h2>
-          <form onSubmit={handleSubmit}> {/* Adicionando o evento de submit */}
+          <form onSubmit={handleSubmit}> 
             <div className="input-group">
               <span className="icon">🧠</span>
               <input
@@ -45,9 +44,9 @@ const ThemeSelector = () => {
                 placeholder="Digite o tema"
                 value={theme}
                 onChange={(e) => setTheme(e.target.value)}
-                onFocus={(e) => (e.target.placeholder = '')} // Remove o placeholder ao focar
-                onBlur={(e) => (e.target.placeholder = 'Digite o tema')} // Retorna o placeholder ao desfocar (corrigido)
-                required // assim garantimos que o elemento é obrigatório e nao comecamos o brainstorm sem que tenhamos um tema e tambem o tempo no caso abaixo
+                onFocus={(e) => (e.target.placeholder = '')} 
+                onBlur={(e) => (e.target.placeholder = 'Digite o tema')} 
+                required 
               />
             </div>
 
@@ -73,7 +72,7 @@ const ThemeSelector = () => {
         
       </div>
       <div className="image-section">
-          <img src={brain_image} alt="imagem-cerebro-login" /> {/* Alt text mais descritivo */}
+          <img src={brain_image} alt="imagem-cerebro-login" /> 
         </div>
     </div>
 </div>  );

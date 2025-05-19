@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './LostPassword.css'; // Importe o CSS específico para esta página
+import './LostPassword.css';
 
 import password_icon from '../../assets/password.png';
 import email_icon from '../../assets/email.png';
@@ -40,9 +40,9 @@ function LostPassword() {
 
             console.log('Resposta da API:', response.data);
             setMessage(response.data.message || 'Palavra-passe alterada com sucesso!');
-            // Redirecionar para a página de login após um breve período
+
             setTimeout(() => {
-                navigate('/'); // Ou '/login', dependendo da sua rota de login
+                navigate('/');
             }, 2000);
 
         } catch (error) {
@@ -56,15 +56,15 @@ function LostPassword() {
     };
 
     return (
-        <div className="login-signup-wrapper"> {/* Use a mesma classe wrapper */}
-            <div className="container2"> {/* Use a mesma classe container */}
+        <div className="login-signup-wrapper">
+            <div className="container2">
                 <div className="header">
                     <div className="text">Redefinir Palavra-passe</div>
                     <div className="underline"></div>
                 </div>
                 <form className="inputs" onSubmit={handleSubmit}>
-                    <div className="inputs"> {/* Mantenha a mesma classe para os inputs */}
-                        <div className="input"> {/* Mantenha a mesma classe para cada input */}
+                    <div className="inputs">
+                        <div className="input">
                             <img src={email_icon} alt="" />
                             <input
                                 type="email"
@@ -102,7 +102,7 @@ function LostPassword() {
                         </div>
                     </div>
                     {message && <div className="message">{message}</div>}
-                    <button type="submit" className="submit-container"> {/* Mantenha a mesma classe para o botão */}
+                    <button type="submit" className="submit-container">
                         Redefinir Palavra-passe
                     </button>
                     <div className="login-link">
@@ -110,7 +110,7 @@ function LostPassword() {
                     </div>
                 </form>
             </div>
-            <div className="image-container"> {/* Mantenha a mesma classe para o container da imagem */}
+            <div className="image-container">
                 <img src={brain_image} alt="imagem da direita" />
             </div>
         </div>

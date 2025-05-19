@@ -8,11 +8,7 @@ import ProfileDetails from './containers/profileDetails/ProfileDetails.jsx'
 import Details from './containers/details/Details.jsx'
 import EditProfile from './containers/profileDetails/editProfile.jsx'
 import LostPassword from './containers/LostPassword/LostPassword.jsx' 
-// Um componente simples para a página principal como exemplo
-// (src/components/PaginaPrincipal/PaginaPrincipal.js)
-// function PaginaPrincipal() {
-//   return <h1>Bem-vindo à Página Principal!</h1>;
-// }
+
 
 function AppRoutes() {
   return (

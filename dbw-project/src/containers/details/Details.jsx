@@ -1,11 +1,10 @@
-// components/Details.jsx
 import React, { useState, useEffect } from 'react';
 import './Details.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const DetailsPage = () => {
-    const { id } = useParams(); // Obtém o ID da sessão da URL
+    const { id } = useParams();
     const [sessionDetails, setSessionDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -14,7 +13,7 @@ const DetailsPage = () => {
     useEffect(() => {
         const fetchSessionDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/sessions/${id}`); // Substitua pela sua rota da API para buscar detalhes da sessão
+                const response = await axios.get(`http://localhost:3001/api/sessions/${id}`); 
                 setSessionDetails(response.data);
                 setLoading(false);
             } catch (err) {

@@ -1,13 +1,12 @@
-/* DetailsPage.css */
 .details-page-container {
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('../../assets/imagemCerebro3.png'); /* Garante que o caminho esteja correto no CSS também */
-    background-size: cover; /* Para cobrir todo o fundo */
-    background-repeat: no-repeat; /* Para evitar repetição da imagem */
-    background-position: center; /* Para centralizar a imagem */
+    background-image: url('../../assets/imagemCerebro3.png'); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center; 
     color: #f8f8f2;
     padding: 20px;
     box-sizing: border-box;
@@ -97,7 +96,7 @@
     font-size: 1em;
     line-height: 1.6;
     box-sizing: border-box;
-    resize: vertical; /* Permite redimensionar verticalmente */
+    resize: vertical; 
   }
   
   .brain-image-container-details {
@@ -112,7 +111,7 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
   
-  /* Responsive adjustments */
+
   @media (max-width: 768px) {
     .details-section {
       padding: 20px;

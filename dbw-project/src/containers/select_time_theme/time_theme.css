@@ -7,11 +7,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* Garante pelo menos a altura da tela */
+    min-height: 100vh;
     padding: 20px;
-    
+
     color: white;
-    flex-direction: row; /* Garante que os filhos (container e image-section) fiquem lado a lado por padrão */
+    flex-direction: row;
 }
 
 .container {
@@ -24,7 +24,7 @@
     margin-left: 350px;
     background: transparent;
     padding-bottom: 30px;
-    transform: translate(-35%, -15%) scale(1.15); 
+    transform: translate(-35%, -15%) scale(1.15);
 }
 
 .form-section {
@@ -62,7 +62,7 @@
     font-size: 16px;
 }
 
-.input-group input::placeholder{
+.input-group input::placeholder {
     color: #000;
 }
 
@@ -73,18 +73,18 @@
     background: none;
     border: none;
     color: #fff;
-    transform: translate(50%, 20%) ;
-  }
-  
-  .logo-i {
+    transform: translate(50%, 20%);
+}
+
+.logo-i {
     font-style: italic;
     color: #6924ca;
-  }
+}
 
-  .logo2:hover{
+.logo2:hover {
     color: #e5d7f7;
-  } 
-  
+}
+
 
 
 .submit-btn {
@@ -109,9 +109,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 20px; /* Espaço entre o formulário e a imagem */
-    width: 50%; /* Ocupa metade da largura do main-container */
-    transform: translate(-20%, 0%) scale(1.2); /* Ajusta a posição e o tamanho da imagem */
+    padding-left: 20px;
+    width: 50%;
+    transform: translate(-20%, 0%) scale(1.2);
 }
 
 .image-section img {
@@ -119,20 +119,20 @@
     max-width: 500px;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    object-fit: contain; /* Garante que a imagem inteira caiba sem cortar */
-    height: auto; /* Mantém a proporção da imagem */
+    object-fit: contain;
+    height: auto;
 }
 
-/* Para telas menores */
+
 @media (max-width: 768px) {
     .main-container {
-        flex-direction: column; /* Organiza verticalmente em telas menores */
-        align-items: center; /* Centraliza horizontalmente */
+        flex-direction: column;
+        align-items: center;
     }
 
     .image-section {
         padding-left: 0;
         margin-top: 30px;
-        width: 80%; /* Ocupa mais largura em telas menores */
+        width: 80%;
     }
 }

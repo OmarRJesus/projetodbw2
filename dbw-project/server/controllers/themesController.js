@@ -2,7 +2,7 @@ import Theme  from "../models/themes.js";
 
 export const getThemes = async (req, res) => {
     try {
-        const themes = await Theme.find(); // Busca todos os documentos da collection Themes
+        const themes = await Theme.find(); 
         res.status(200).json(themes);
     } catch (error) {
         console.error('Erro ao buscar os temas:', error);
